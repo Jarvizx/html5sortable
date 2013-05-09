@@ -33,10 +33,10 @@ $.fn.sortable = function(options) {
 			$(options.connectWith).add(this).data('connectWith', options.connectWith);
 		}
 		// Setup drag handles
-		handles.attr('draggable', 'true').not('a[href], img').on('selectstart.h5s', function() {
+		handles.attr('draggable', 'true'); /*.not('a[href], img, input').on('selectstart.h5s', function() {
 			this.dragDrop && this.dragDrop();
 			return false;
-		}).end();
+		}).end();*/
 		
 		// Handle drag events on draggable items
 		items.on('dragstart.h5s', function(e) {
