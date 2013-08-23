@@ -1,7 +1,7 @@
 HTML5 Sortable jQuery Plugin
 ============================
 
-**[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
+**[Demos & Documentation](http://james2doyle.github.io/html5sortable)**
 
 Features
 --------
@@ -47,7 +47,7 @@ Setting `forcePlaceholderSize` option to true, forces the placeholder to have a 
 
 ``` javascript
 $('.sortable').sortable({
-    forcePlaceholderSize: true 
+    forcePlaceholderSize: true
 });
 ```
 
