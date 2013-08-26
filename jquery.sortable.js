@@ -10,7 +10,8 @@
   $.fn.sortable = function(options) {
     var method = String(options);
     options = $.extend({
-      connectWith: false
+      connectWith: false,
+      namespace: '.h5s'
     }, options);
     return this.each(function() {
       var $this = $(this);
@@ -19,8 +20,8 @@
         var handles = $this.children($this.data('handles')).attr('draggable', method == 'enable');
         if (method == 'destroy') {
           items.add(this).removeData('connectWith items')
-          .off('dragstart.h5s dragend.h5s dragover.h5s dragenter.h5s drop.h5s');
-          handles.off('selectstart.h5s');
+          .off(options.namespace.join());
+          handles.off('selectstart'+options.namespace);
         }
         return;
       }
@@ -37,12 +38,12 @@
       handles.attr('draggable', 'true');
 
       // Handle drag events on draggable items
-      items.on('dragstart.h5s', function(e) {
+      items.on('dragstart'+options.namespace, function(e) {
         e.originalEvent.dataTransfer.effectAllowed = 'move';
         index = (dragging = $(this)).addClass('sortable-dragging').index();
         parent = dragging.parent();
         e.stopPropagation();
-      }).on('dragend.h5s', function() {
+      }).on('dragend'+options.namespace, function() {
         if (!dragging) {
           return;
         }
@@ -53,7 +54,7 @@
         }
         dragging = null;
         parent = null;
-      }).add([this, placeholder]).on('dragover.h5s dragenter.h5s drop.h5s', function(e) {
+      }).add([this, placeholder]).on('dragover'+options.namespace+' dragenter'+options.namespace+' drop'+options.namespace, function(e) {
         if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
           return true;
         }

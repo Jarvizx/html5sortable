@@ -160,7 +160,14 @@
 	<script src="jquery.sortable.js"></script>
 	<script>
 		$(function() {
-			$('.sortable').sortable();
+			$('.sortable').sortable({
+				// default namespace is {event}.h5s
+				namespace: ''
+			});
+			// default would be $().on('drop.h5s', fn)
+			$('.sortable').on('drop', function() {
+				console.log('drop');
+			})
 			$('.handles').sortable({
 				handle: 'span'
 			});
