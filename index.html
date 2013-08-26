@@ -162,11 +162,10 @@
 		$(function() {
 			$('.sortable').sortable({
 				// default namespace is {event}.h5s
-				namespace: ''
+				namespace: '.h5s'
 			});
-			// default would be $().on('drop.h5s', fn)
-			$('.sortable').on('drop', function() {
-				console.log('drop');
+			$('.sortable').on('drop.h5s', function() {
+				console.log('drop.h5s');
 			})
 			$('.handles').sortable({
 				handle: 'span'

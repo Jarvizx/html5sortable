@@ -59,6 +59,18 @@ $('#sortable1, #sortable2').sortable({
 });
 ```
 
+By default the events are not namespaced. Appending the namespace with help with conflicts. To change this, just overwrite the namespace:
+
+``` javascript
+$('.sortable').sortable({
+    namespace: '.h5s'
+});
+// then
+$('.sortable').on('drop.h5s', function(){
+    alert('you dropped it!!');
+});
+```
+
 To remove the sortable functionality completely:
 
 ``` javascript

@@ -11,7 +11,7 @@
     var method = String(options);
     options = $.extend({
       connectWith: false,
-      namespace: '.h5s'
+      namespace: ''
     }, options);
     return this.each(function() {
       var $this = $(this);
