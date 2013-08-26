@@ -164,9 +164,9 @@
 				// default namespace is {event}.h5s
 				namespace: '.h5s'
 			});
-			$('.sortable').on('drop.h5s', function() {
-				console.log('drop.h5s');
-			})
+			$('.sortable').on('dragstart.h5s dragend.h5s drop.h5s dragover.h5s dragenter.h5s sortupdate.h5s', function(e) {
+				console.log(e.type);
+			});
 			$('.handles').sortable({
 				handle: 'span'
 			});
