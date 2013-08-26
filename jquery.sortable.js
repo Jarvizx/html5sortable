@@ -6,7 +6,7 @@
  * Released under the MIT license.
  */
  (function($) {
-  var dragging, placeholders = $();
+  var dragging = null, placeholders = $();
   $.fn.sortable = function(options) {
     var method = String(options);
     options = $.extend({
@@ -36,13 +36,13 @@
       }
       // Setup drag handles
       handles.attr('draggable', 'true');
-
       // Handle drag events on draggable items
       items.on('dragstart'+options.namespace, function(e) {
+        e.stopPropagation();
         e.originalEvent.dataTransfer.effectAllowed = 'move';
+        e.originalEvent.dataTransfer.setData('text/html', this.innerHTML);
         index = (dragging = $(this)).addClass('sortable-dragging').index();
         parent = dragging.parent();
-        e.stopPropagation();
       }).on('dragend'+options.namespace, function() {
         if (!dragging) {
           return;
@@ -50,7 +50,7 @@
         dragging.removeClass('sortable-dragging').show();
         placeholders.detach();
         if (index != dragging.index() || !parent.is(dragging.parent())) {
-          dragging.parent().trigger('sortupdate', {item: dragging});
+          dragging.parent().trigger('sortupdate'+options.namespace, {item: dragging});
         }
         dragging = null;
         parent = null;
