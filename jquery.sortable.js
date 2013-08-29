@@ -11,25 +11,27 @@
     var method = String(options);
     options = $.extend({
       connectWith: false,
-      namespace: ''
+      namespace: '',
+      items: 'li',
+      handle: false
     }, options);
     return this.each(function() {
       var $this = $(this);
       if (/^enable|disable|destroy$/.test(method)) {
-        var items = $this.children($this.data('items'));
-        var handles = $this.children($this.data('handles')).attr('draggable', method == 'enable');
+        var items = $this.children($this.data('items', options.items));
+        var handles = $this.children($this.data('handles', options.handle ? options.handle : options.items)).attr('draggable', method == 'enable');
         if (method == 'destroy') {
-          items.add(this).removeData('connectWith items')
-          .off(options.namespace.join());
+          var namespacearray = ['dragstart', 'dragend', 'dragover', 'dragenter', 'drop'];
+          items.add(this).removeData('connectWith items').off(namespacearray.join(options.namespace));
           handles.off('selectstart'+options.namespace);
         }
         return;
       }
-      var index, items = $this.children(options.items), handles = options.handle ? items.find(options.handle) : items;
-      var parent;
-      var placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
-      $this.data('items', options.items);
-      $this.data('handles', options.handle ? options.handle : options.items);
+      var index,
+      items = $this.children(options.items),
+      handles = options.handle ? items.find(options.handle) : items,
+      parent,
+      placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
       placeholders = placeholders.add(placeholder);
       if (options.connectWith) {
         $(options.connectWith).add(this).data('connectWith', options.connectWith);
@@ -79,6 +81,6 @@
         }
         return false;
       });
-    });
-  };
+});
+};
 })(jQuery);
