@@ -31,7 +31,7 @@
       items = $this.children(options.items),
       handles = options.handle ? items.find(options.handle) : items,
       parent,
-      placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : 'div') + ' class="sortable-placeholder">');
+      placeholder = $('<' + (/^ul|ol$/i.test(this.tagName) ? 'li' : options.items) + ' class="sortable-placeholder">');
       placeholders = placeholders.add(placeholder);
       if (options.connectWith) {
         $(options.connectWith).add(this).data('connectWith', options.connectWith);
